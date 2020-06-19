@@ -51,6 +51,9 @@ cd hello-cdk
 # cdk init TEMPLATE --language LANGUAGE
 cdk init app --language python
 
+# To manually create a virtualenv on MacOS and Linux:
+python -m venv .env
+
 # activate the virtualenv
 source env/bin/activate
 
@@ -60,10 +63,17 @@ pip install -r requirements.txt
 # list the stacks
 cdk ls
 
+# create the cloudformation
+cdk synth
+
 # install the aws-s3 module
 pip install aws-cdk.aws-s3
 
 ```
+
+To add additional dependencies, for example other CDK libraries, just add
+them to your `setup.py` file and rerun the `pip install -r requirements.txt`
+command.
 
 ### Add an Amazon S3 bucket
 
