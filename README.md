@@ -140,9 +140,15 @@ As with cdk synth, you don't need to specify the name of the stack since there's
 
 ### Modifying the app
 
+TODO
+
 ### Destroying the app's resources
 
+TODO
+
 ## Next steps
+
+TODO
 
 ## Contributing
 
