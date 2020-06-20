@@ -45,7 +45,7 @@ The AWS CDK's core module (usually imported into code as core or cdk) contains c
 
 See the [Getting Started](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) for complete details.
 
-### Install Node.js and the `aws-cdk`
+### Install Node.js and the aws-cdk
 
 Install [Node.js 10.3.0](https://nodejs.org/en/download/) or later.
 
