@@ -1,8 +1,8 @@
-![https://cdkworkshop.com/images/cdk-logo.png](https://cdkworkshop.com/images/cdk-logo.png)
-
 # aws-cdk-python
 
-A repo based on the `python` workshop from https://cdkworkshop.com/ 
+![https://cdkworkshop.com/images/cdk-logo.png](https://cdkworkshop.com/images/cdk-logo.png)
+
+A repo based on the `python` workshop from <https://cdkworkshop.com/>
 
 ## Background
 
@@ -16,14 +16,14 @@ Developers can use one of the supported programming languages to define reusable
 
 The AWS CDK is designed around a handful of important concepts. We will introduce a few of these here briefly. Follow the links to learn more, or see the Concepts topics in this guide's Table of Contents.
 
-An AWS CDK app is an application written in TypeScript, JavaScript, Python, Java, or C# that uses the AWS CDK to define AWS infrastructure. 
-
-* `App` - An app defines one or more `stacks` 
-    - `Stacks` (equivalent to AWS CloudFormation stacks) contain `constructs` 
-        * `Construct` - defines one or more concrete `AWS resources` 
-            * `AWS Resource` - concrete resource defined in `construct` 
-
-The AWS CDK includes a library of AWS constructs called the AWS Construct Library. 
+An AWS CDK app is an application written in TypeScript, JavaScript, Python, Java, or C# that uses the AWS CDK to define AWS infrastructure.
+<!-- markdownlint-disable MD004 -->
+* `App` - An app defines one or more `stacks`
+  + `Stacks` (equivalent to AWS CloudFormation stacks) contain `constructs`
+    - `Construct` - defines one or more concrete `AWS resources`
+      * `AWS Resource` - concrete resource defined in `construct`
+<!-- markdownlint-restore MD004 -->
+The AWS CDK includes a library of AWS constructs called the AWS Construct Library.
 
 Each AWS service has at least one corresponding module in the library containing the constructs that represent that service's resources.
 
@@ -45,7 +45,7 @@ The AWS CDK's core module (usually imported into code as core or cdk) contains c
 
 See the [Getting Started](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html) for complete details.
 
-### Install Node.js and the `aws-cdk` 
+### Install Node.js and the `aws-cdk`
 
 Install [Node.js 10.3.0](https://nodejs.org/en/download/) or later.
 
@@ -131,12 +131,12 @@ pip install aws-cdk.aws-s3
 ```
 
 To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt` 
+them to your `setup.py` file and rerun the `pip install -r requirements.txt`
 command.
 
 ### Add an Amazon S3 bucket
 
-`hello_cdk_stack.py` 
+`hello_cdk_stack.py`
 
 ``` python
 
@@ -144,8 +144,8 @@ from aws_cdk import (
     aws_s3 as s3,
     core
 )
-bucket = s3.Bucket(self, 
-    "MyFirstBucket", 
+bucket = s3.Bucket(self,
+    "MyFirstBucket",
     versioned=True,)
 
 ```
@@ -155,11 +155,11 @@ The `Bucket` class is a `Construct` and takes three parameters:
 * `scope` : Tells the bucket that the stack is its parent: it is defined within the scope of the stack. You can define constructs inside of constructs, creating a hierarchy (tree).
 
 * `Id` : The logical ID of the Bucket within your AWS CDK app. This (plus a hash based on the bucket's location within the stack) uniquely identifies the bucket across deployments so the AWS CDK can update it if you change how it's defined in your app. Buckets can also have a name, which is separate from this ID (it's the bucketName property).
-
+<!-- markdownlint-disable MD004 -->
 * `props` : A bundle of values that define properties of the bucket. Here we've defined only one property: versioned, which enables versioning for the files in the bucket.
-    - In `Python` , props are represented as keyword arguments.
-    - In `TypeScript` and `JavaScript` , props is a single argument and you pass in an object containing the desired properties.
-
+  + In `Python` , props are represented as keyword arguments.
+  + In `TypeScript` and `JavaScript` , props is a single argument and you pass in an object containing the desired properties.
+<!-- markdownlint-restore MD004 -->
 All constructs take these same three arguments.  And as you might expect, you can subclass any construct to extend it to suit your needs, or just to change its defaults.
 
 > Tip: If all a construct's props are optional, you can omit the third parameter entirely.
@@ -212,15 +212,15 @@ As with cdk synth, you don't need to specify the name of the stack since there's
 
 ### Modifying the app
 
-    TODO
+TODO
 
 ### Destroying the app's resources
 
-    TODO
+TODO
 
 ## Next steps
 
-    TODO
+TODO
 
 ## Contributing
 
@@ -237,5 +237,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
- 
+* [MIT](https://choosealicense.com/licenses/mit/)
