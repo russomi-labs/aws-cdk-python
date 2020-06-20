@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+#lib/
 lib64/
 parts/
 sdist/
@@ -253,3 +253,6 @@ package-lock.json
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# vscode
+.vscode
