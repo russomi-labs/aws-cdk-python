@@ -114,10 +114,10 @@ cdk init app --language python
 python -m venv .env
 
 # activate the virtualenv
-source env/bin/activate
+source .env/bin/activate
 
 # install the packages from requirements.txt
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 # list the stacks
 cdk ls
@@ -126,7 +126,7 @@ cdk ls
 cdk synth
 
 # install the aws-s3 module
-pip install aws-cdk.aws-s3
+pip3 install aws-cdk.aws-s3
 
 ```
 
