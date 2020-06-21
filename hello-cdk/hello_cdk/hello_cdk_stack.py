@@ -13,4 +13,5 @@ class HelloCdkStack(core.Stack):
         # The code that defines your stack goes here
         s3.Bucket(self,
                   "MyFirstBucket",
-                  versioned=True,)
+                  versioned=True,
+                  removal_policy=core.RemovalPolicy.DESTROY)
