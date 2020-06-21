@@ -2,7 +2,19 @@
 
 ![https://cdkworkshop.com/images/cdk-logo.png](https://cdkworkshop.com/images/cdk-logo.png)
 
-A repo based on the `python` workshop from <https://cdkworkshop.com/>
+Based on [Your first AWS CDK app](https://docs.aws.amazon.com/cdk/latest/guide/hello_world.html).
+
+## Contents
+
+* [Background](#background)
+* [Key Concepts](#key-concepts)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+* [Quick Start](#quick-start)
+* [Next steps](#next-steps)
+* [Contributing](#contributing)
+* [References](#references)
+* [License](#license)
 
 ## Background
 
@@ -43,7 +55,7 @@ Constructs come in three fundamental flavors:
 
 The AWS CDK's core module (usually imported into code as core or cdk) contains constructs used by the AWS CDK itself as well as base classes for constructs, apps, resources, and other AWS CDK objects.
 
-## AWS CDK prerequisites
+## Prerequisites
 
 To use the AWS CDK, you need an AWS account and a corresponding access key.
 
@@ -157,12 +169,10 @@ them to your `setup.py` file and rerun the `pip install -r requirements.txt` com
 
 ``` python
 
-
 from aws_cdk import (
     aws_s3 as s3,
     core
 )
-
 
 class HelloCdkStack(core.Stack):
 
