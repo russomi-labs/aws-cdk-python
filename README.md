@@ -17,12 +17,14 @@ Developers can use one of the supported programming languages to define reusable
 The AWS CDK is designed around a handful of important concepts. We will introduce a few of these here briefly. Follow the links to learn more, or see the Concepts topics in this guide's Table of Contents.
 
 An AWS CDK app is an application written in TypeScript, JavaScript, Python, Java, or C# that uses the AWS CDK to define AWS infrastructure.
-<!-- markdownlint-disable MD004 -->
-* `App` - An app defines one or more `stacks`
-  + `Stacks` (equivalent to AWS CloudFormation stacks) contain `constructs`
-    - `Construct` - defines one or more concrete `AWS resources`
-      * `AWS Resource` - concrete resource defined in `construct`
-<!-- markdownlint-restore MD004 -->
+<!-- markdownlint-disable MD004 MD009-->
+
+* `App` - An app defines one or more `stacks` 
+  + `Stacks` (equivalent to AWS CloudFormation stacks) contain `constructs` 
+    - `Construct` - defines one or more concrete `AWS resources` 
+      * `AWS Resource` - concrete resource defined in `construct` 
+
+<!-- markdownlint-restore MD004 MD009 -->
 The AWS CDK includes a library of AWS constructs called the AWS Construct Library.
 
 Each AWS service has at least one corresponding module in the library containing the constructs that represent that service's resources.
@@ -40,6 +42,22 @@ Constructs come in three fundamental flavors:
 * **Patterns or L3.** Patterns declare multiple resources to create entire AWS architectures for particular use cases. All the plumbing is already hooked up, and configuration is boiled down to a few important parameters. In the AWS Construct Library, patterns are in separate modules from L1 and L2 constructs.
 
 The AWS CDK's core module (usually imported into code as core or cdk) contains constructs used by the AWS CDK itself as well as base classes for constructs, apps, resources, and other AWS CDK objects.
+
+## AWS CDK prerequisites
+
+To use the AWS CDK, you need an AWS account and a corresponding access key.
+
+``` bash
+aws configure
+```
+
+Using `python` with the AWS CDK requires:
+
+* Python 3.6 or later
+* pip
+* virtualenv
+
+**Note**: If you encounter a permission error, run the above commands using sudo (to install the modules system-wide) or add the --user flag to each command so that the modules are installed in your user directory.
 
 ## Installation
 
@@ -131,23 +149,30 @@ pip3 install aws-cdk.aws-s3
 ```
 
 To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
+them to your `setup.py` file and rerun the `pip install -r requirements.txt` command.
 
 ### Add an Amazon S3 bucket
 
-`hello_cdk_stack.py`
+`hello_cdk_stack.py` :
 
 ``` python
+
 
 from aws_cdk import (
     aws_s3 as s3,
     core
 )
-bucket = s3.Bucket(self,
-    "MyFirstBucket",
-    versioned=True,)
 
+
+class HelloCdkStack(core.Stack):
+
+    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+        super().__init__(scope, id, **kwargs)
+
+        # The code that defines your stack goes here
+        s3.Bucket(self,
+                  "MyFirstBucket",
+                  versioned=True,)
 ```
 
 The `Bucket` class is a `Construct` and takes three parameters:
@@ -155,10 +180,13 @@ The `Bucket` class is a `Construct` and takes three parameters:
 * `scope` : Tells the bucket that the stack is its parent: it is defined within the scope of the stack. You can define constructs inside of constructs, creating a hierarchy (tree).
 
 * `Id` : The logical ID of the Bucket within your AWS CDK app. This (plus a hash based on the bucket's location within the stack) uniquely identifies the bucket across deployments so the AWS CDK can update it if you change how it's defined in your app. Buckets can also have a name, which is separate from this ID (it's the bucketName property).
+
 <!-- markdownlint-disable MD004 -->
+
 * `props` : A bundle of values that define properties of the bucket. Here we've defined only one property: versioned, which enables versioning for the files in the bucket.
   + In `Python` , props are represented as keyword arguments.
   + In `TypeScript` and `JavaScript` , props is a single argument and you pass in an object containing the desired properties.
+
 <!-- markdownlint-restore MD004 -->
 All constructs take these same three arguments.  And as you might expect, you can subclass any construct to extend it to suit your needs, or just to change its defaults.
 
@@ -203,6 +231,7 @@ The output of `cdk synth` is a perfectly valid AWS CloudFormation template. You 
 To deploy the stack using AWS CloudFormation, issue:
 
 ``` bash
+# Deploys the stack using AWS credentials
 cdk deploy
 ```
 
@@ -212,15 +241,46 @@ As with cdk synth, you don't need to specify the name of the stack since there's
 
 ### Modifying the app
 
-TODO
+The AWS CDK can update your deployed resources after you modify your app. Let's make a little change to our bucket. We want to be able to delete the bucket automatically when we delete the stack, so we'll change the RemovalPolicy.
+
+``` python
+s3.Bucket(self,
+    "MyFirstBucket",
+    versioned=True,
+    removal_policy=core.RemovalPolicy.DESTROY)
+```
+
+Now we'll use the cdk diff command to see the differences between what's already been deployed, and the code we just changed.
+
+``` bash
+# Generate a difference report between local vs. deployed
+cdk diff
+```
+
+The AWS CDK Toolkit queries your AWS account for the current AWS CloudFormation template for the hello-cdk stack, and compares it with the template it synthesized from your app. The Resources section of the output should look like the following.
+
+``` bash
+# Deploys the stack using AWS credentials
+cdk deploy
+```
 
 ### Destroying the app's resources
 
-TODO
+Now that you're done with the quick tour, destroy your app's resources to avoid incurring any costs from the bucket you created, as follows.
+
+``` bash
+# Destroy stack resources
+cdk destroy
+```
+
+**Note**: If cdk destroy fails, it probably means you put something in your Amazon S3 bucket. AWS CloudFormation won't delete buckets with files in them. Delete the files and try again.
 
 ## Next steps
 
-TODO
+* Try the [CDK Workshop](https://cdkworkshop.com/) for a more in-depth tour involving a more complex project.
+* See the [API reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html) to begin exploring the CDK constructs available for your favorite AWS services.
+* Dig deeper into concepts like [Environments](https://docs.aws.amazon.com/cdk/latest/guide/environments.html), [Assets](https://docs.aws.amazon.com/cdk/latest/guide/assets.html), [Permissions](https://docs.aws.amazon.com/cdk/latest/guide/permissions.html), [Runtime context](https://docs.aws.amazon.com/cdk/latest/guide/context.html), [Parameters](https://docs.aws.amazon.com/cdk/latest/guide/parameters.html), and [Escape hatches](https://docs.aws.amazon.com/cdk/latest/guide/cfn_layer.html).
+* Explore [Examples](https://github.com/aws-samples/aws-cdk-examples) of using the AWS CDK.
 
 ## Contributing
 
