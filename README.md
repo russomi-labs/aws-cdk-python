@@ -149,19 +149,22 @@ source .env/bin/activate
 # install the packages from requirements.txt
 pip3 install -r requirements.txt
 
-# list the stacks
-cdk ls
-
-# create the cloudformation
-cdk synth
-
 # install the aws-s3 module
 pip3 install aws-cdk.aws-s3
-
 ```
 
 To add additional dependencies, for example other CDK libraries, just add
 them to your `setup.py` file and rerun the `pip install -r requirements.txt` command.
+
+### Useful commands
+
+ * `cdk ls`          list all stacks in the app
+ * `cdk synth`       emits the synthesized CloudFormation template
+ * `cdk deploy`      deploy this stack to your default AWS account/region
+ * `cdk diff`        compare deployed stack with current state
+ * `cdk docs`        open CDK documentation
+
+Enjoy!
 
 ### Add an Amazon S3 bucket
 
